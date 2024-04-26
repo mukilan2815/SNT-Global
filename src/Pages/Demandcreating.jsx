@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import snt from "./snt.png";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -20,9 +19,7 @@ const Demandcreating = () => {
     accounts_unit: "",
   });
   const [error, setError] = useState(null);
-  const handleSubmit1 = async () => {
-    toast.success("Demand Request sent successfully");
-  };
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     let newValue = value;
@@ -33,6 +30,12 @@ const Demandcreating = () => {
     setFormValues({ ...formValues, [id]: newValue });
   };
   const handleSubmit = async () => {
+    const isEmpty = Object.values(formValues).some((value) => value === "");
+
+    if (isEmpty) {
+      toast.error("Please fill all the fields");
+      return;
+    }
     try {
       const response = await axios.post(
         "http://64.227.134.220:8008/DemandRegister/",
@@ -177,7 +180,7 @@ const Demandcreating = () => {
               ></textarea>
               <div className="mb-4"></div>
               <button
-                onClick={handleSubmit1}
+                onClick={handleSubmit}
                 className="outline-none p-4 transition-all px-10 bg-yellow-400 font-bold rounded-md hover:shadow-lg hover:bg-yellow-500"
               >
                 Submit
