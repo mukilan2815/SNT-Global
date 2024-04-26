@@ -34,7 +34,7 @@ const Navbar = () => {
           <a href="/demandcreating">Request Demand</a>
         </li>
         <Link to="/complaint1">Complaint</Link>
-        <Link to="/login" onClick={() => localStorage.removeItem("token")}>
+        <Link to="/login" className="ml-6" onClick={() => localStorage.removeItem("token")}>
           Logout
         </Link>
       </>

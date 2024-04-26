@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import snt from "./snt.png";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,16 +20,23 @@ const Demandcreating = () => {
     accounts_unit: "",
   });
   const [error, setError] = useState(null);
-
+  const handleSubmit1 = async () => {
+    toast.success("Demand Request sent successfully");
+  };
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormValues({ ...formValues, [id]: value });
-  };
+    let newValue = value;
+    if (id === "product") {
+      newValue = parseInt(value, 10);
+    }
 
+    setFormValues({ ...formValues, [id]: newValue });
+  };
   const handleSubmit = async () => {
+
     try {
       const response = await axios.post(
-        "http://192.168.96.132:8000/DemandRegister/",
+        "http://64.227.134.220:8008/DemandRegister/",
         formValues,
         {
           headers: {
@@ -50,21 +58,22 @@ const Demandcreating = () => {
   return (
     <div>
       <Navbar />
-      <div className="100vh dr overflow-y-hidden">
+      <div className="h-screen dr overflow-y-hidden">
         <div className="flex items-center pt-10 justify-evenly overflow-y-hidden">
           <div>
             <h1 className="font-bold text-2xl text-white mb-10">
               Request the <span className="text-yellow-300">Demands </span>here
               <span className="text-blue-500"> .</span>
             </h1>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-4">
               <input
                 type="name"
                 name="product"
                 id="product"
-                placeholder="Name"
+                placeholder="Product Name"
                 onChange={handleChange}
-                className="mb-4 outline-none bg-slate-600 border-black border-2 transition-all text-white rounded-lg p-4"
+                style={{ backgroundColor: "#1a202c" }}
+                className="flex-1 mb-4 focus:rounded-lg outline-none transition-all text-white border-black p-4"
               />
               <div className="flex mb-4">
                 <input
@@ -73,7 +82,7 @@ const Demandcreating = () => {
                   id="number"
                   placeholder="Number"
                   onChange={handleChange}
-                  className="flex-1 mr-2 outline-none transition-all text-white border-black p-4"
+                  className="flex-1 mr-2 focus:rounded-lg outline-none transition-all text-white border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 />
                 <input
@@ -82,17 +91,19 @@ const Demandcreating = () => {
                   id="quantity"
                   placeholder="QUANTITY"
                   onChange={handleChange}
-                  className="flex-1 ml-2 outline-none text-white transition-all border-black p-4"
+                  className="flex-1 ml-2 focus:rounded-lg outline-none text-white transition-all border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 />
                 <select
                   name="unit"
                   id="unit"
                   onChange={handleChange}
-                  className="flex-1 ml-2 outline-none transition-all text-white border-black p-4"
+                  className="flex-1 ml-2 focus:rounded-lg outline-none transition-all text-white border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 >
                   <option value="NOS">NOS</option>
+                  <option value="KG">KG</option>
+                  <option value="L">L</option>
                 </select>
               </div>
 
@@ -103,7 +114,7 @@ const Demandcreating = () => {
                   id="consignee_name"
                   placeholder="CONSIGNEE"
                   onChange={handleChange}
-                  className="flex-1 mr-2 outline-none transition-all text-white border-black p-4"
+                  className="flex-1 mr-2 focus:rounded-lg outline-none transition-all text-white border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 />
                 <input
@@ -112,7 +123,7 @@ const Demandcreating = () => {
                   id="consignee_officer"
                   placeholder="CON.OFFICER"
                   onChange={handleChange}
-                  className="flex-1 ml-2 outline-none transition-all text-white border-black p-4"
+                  className="flex-1 ml-2 focus:rounded-lg outline-none transition-all text-white border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 />
               </div>
@@ -123,7 +134,7 @@ const Demandcreating = () => {
                   id="consignee_code"
                   placeholder="CONSIGNEE Code"
                   onChange={handleChange}
-                  className="flex-1 mr-2 outline-none transition-all text-white border-black p-4"
+                  className="flex-1 mr-2 focus:rounded-lg outline-none transition-all text-white border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 />
                 <input
@@ -132,7 +143,7 @@ const Demandcreating = () => {
                   id="demand_code"
                   placeholder="INDENT Code"
                   onChange={handleChange}
-                  className="flex-1 ml-2 outline-none transition-all text-white border-black p-4"
+                  className="flex-1 ml-2 focus:rounded-lg outline-none transition-all text-white border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 />
               </div>
@@ -143,7 +154,7 @@ const Demandcreating = () => {
                   id="allocation_number"
                   placeholder="Allocation NUMBER"
                   onChange={handleChange}
-                  className="flex-1 mr-2 outline-none transition-all text-white border-black p-4"
+                  className="flex-1 mr-2 focus:rounded-lg outline-none transition-all text-white border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 />
                 <input
@@ -152,24 +163,32 @@ const Demandcreating = () => {
                   id="accounts_unit"
                   placeholder="ACCOUNTS UNIT"
                   onChange={handleChange}
-                  className="flex-1 ml-2 outline-none transition-all text-white border-black p-4"
+                  className="flex-1 ml-2 focus:rounded-lg outline-none transition-all text-white border-black p-4"
                   style={{ backgroundColor: "#1a202c" }}
                 />
               </div>
-              <div className="mb-4">
-                <button
-                  onClick={handleSubmit}
-                  className="outline-none ml-2 p-4 transition-all px-10 bg-yellow-400 font-bold rounded-md hover:shadow-lg hover:bg-yellow-500"
-                >
-                  Submit
-                </button>
-              </div>
+              <textarea
+                name="message"
+                id="message"
+                cols="10"
+                rows="2"
+                placeholder="Message"
+                className="outline-none focus:rounded-lg transition-all mb-3 text-white border-black p-4"
+                style={{ backgroundColor: "#1a202c" }}
+              ></textarea>
+              <div className="mb-4"></div>
+              <button
+                onClick={handleSubmit1}
+                className="outline-none p-4 transition-all px-10 bg-yellow-400 font-bold rounded-md hover:shadow-lg hover:bg-yellow-500"
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>
-        <div className="h-screen">
-          <ToastContainer />
-        </div>
+      </div>
+      <div className="h-screen w-screen">
+        <ToastContainer />
       </div>
     </div>
   );

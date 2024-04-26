@@ -14,9 +14,11 @@ const Home = () => {
   }, []);
 
   const handleLogin = async () => {
+    localStorage.setItem("username", username); // store username in localStorage
+    localStorage.setItem("password", password); // store password in localStorage
     try {
       const response = await axios.post(
-        "http://192.168.96.132:8000/obtainAuthToken/",
+        "http://64.227.134.220:8008/obtainAuthToken/",
         {
           username: username,
           password: password,
@@ -25,6 +27,7 @@ const Home = () => {
 
       const newToken = response.data.token;
       localStorage.setItem("token", newToken);
+
       setToken(newToken);
       console.log(localStorage.getItem("token"));
       window.location.reload(true);
@@ -32,7 +35,6 @@ const Home = () => {
       console.error("Axios Error:", error);
     }
   };
-
   return (
     <div>
       <Navbar />

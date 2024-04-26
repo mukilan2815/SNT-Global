@@ -24,7 +24,7 @@ const Complain1 = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://192.168.96.132:8000/complaint1/",
+        "http://64.227.134.220:8008/complaint1/",
         values,
         {
           headers: {
