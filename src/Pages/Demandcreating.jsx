@@ -33,7 +33,6 @@ const Demandcreating = () => {
     setFormValues({ ...formValues, [id]: newValue });
   };
   const handleSubmit = async () => {
-
     try {
       const response = await axios.post(
         "http://64.227.134.220:8008/DemandRegister/",
