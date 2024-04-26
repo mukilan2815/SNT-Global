@@ -11,7 +11,6 @@ const Login = () => {
           <div className=" absolute bg-black opacity-50 w-full h-full"></div>
           <img src={train} alt="train" className="object-cover w-full h-full" />
         </div>
-
         <div className="absolute inset-1 -ml-[45%] flex items-center justify-center">
           <form className="mx-auto p-8 bg-white rounded-lg shadow-md">
             <h1 className="text-3xl font-bold mb-6 text-gray-800">Login</h1>
